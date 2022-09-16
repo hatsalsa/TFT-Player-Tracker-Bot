@@ -1,3 +1,4 @@
+from cgitb import text
 from itertools import count
 from schedule import every, repeat, run_pending
 import os
@@ -8,6 +9,7 @@ import time
 from dotenv import load_dotenv
 import requests
 import datetime
+from halo import Halo
 x = datetime.datetime.now()
 load_dotenv()
 
@@ -46,7 +48,7 @@ def check_rank():
  #  If the rank is PLATINUM send the first message if it's DIAMOND send the second message and end the program.
  if division == 'PLATINUM':
    client.create_tweet(text=f'NO, AS OF {x.strftime("%c")} SHE IS {division}-{div_rank} WITH {str(int(lp))}LP AND {str(int(losses))} LOSSES https://www.twitch.tv/yoonahkorn')
-   print("\nTWEET POST IT", end="\r")
+   print('\033[1;92m' + '✔ TWEET POST IT' + '\033[0m', end="\r")
  elif division == "DIAMOND":
   api.update_status_with_media(f'SHE FINALLY DID IT !!! - {division}-{div_rank} WITH {lp}LP IT ONLY TOOK HER  {str(int(wins))} WINS.', "letsgo.gif")
   print("SHE FINALLY REACHED DIAMOND")
@@ -54,26 +56,33 @@ def check_rank():
 
 
 # define the countdown func.
+# @Halo(text='', spinner='dots')
 def countdown(t):
-
     while t:
         mins, secs = divmod(t, 60)
         hours, mins = divmod(mins, 60)
         timer = '{:d}:{:02d}:{:02d}'.format(hours, mins, secs)
-        print("Tweeting in " + timer, end="\r")
+        # print('\033[1;33m' + 'Tweeting in ' + timer + '\033[0m', end='\r')
         time.sleep(1)
         t -= 1
 
+# spinner = Halo(text='\033[1;33m' + 'Timer is running' + '\033[0m', spinner='dots')
 # function call
-print("Starting job...")
-@repeat(every(10).seconds)
+os.system('cls||clear')
+print('\033[1;91m' + 'Starting job...' + '\033[0m')
+
+@repeat(every(1).seconds)
 def main():
-  print("Running timer now...", end="\r")
-  countdown(10800)
-  print("\nSending tweet...", end="\r")
+  # print('\033[1;32m' + 'Running timer now...' + '\033[0m')
+  spinner = Halo(text='\033[1;33m'+'Waiting for cooldown.' + '\033[0m', spinner='dots', color='green')
+  spinner.start()
+  countdown(100)
+  spinner.succeed(text='\n\033[1;34m' + 'Now we send the tweet!' + '\033[0m')
+  spinner.stop()
+  # print('\n\033[1;34m' + 'Sending tweet...' + '\033[0m')
   # os.system('cls||clear')
   check_rank()
-  print("\nRestarting Job...", end="\r")
+  print('\n\033[1;37m'  + 'Restarting Job...' + '\033[0m')
 while True:
     try:
       run_pending()
