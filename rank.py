@@ -1,15 +1,13 @@
-from cgitb import text
-from itertools import count
 from schedule import every, repeat, run_pending
 import os
-import sys
 import tweepy
-import schedule
 import time
 from dotenv import load_dotenv
 import requests
 import datetime
 from halo import Halo
+
+
 x = datetime.datetime.now()
 load_dotenv()
 
