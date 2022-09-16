@@ -46,7 +46,7 @@ def check_rank():
  #  If the rank is PLATINUM send the first message if it's DIAMOND send the second message and end the program.
  if division == 'PLATINUM':
    client.create_tweet(text=f'NO, AS OF {x.strftime("%c")} SHE IS {division}-{div_rank} WITH {str(int(lp))}LP AND {str(int(losses))} LOSSES https://www.twitch.tv/yoonahkorn')
-   print('\033[1;92m' + '✔ TWEET POST IT' + '\033[0m', end="\r")
+   print('\033[1;92m' + '✔ Tweeted successfully' + '\033[0m', end="\r")
  elif division == "DIAMOND":
   api.update_status_with_media(f'SHE FINALLY DID IT !!! - {division}-{div_rank} WITH {lp}LP IT ONLY TOOK HER  {str(int(wins))} WINS.', "letsgo.gif")
   print("SHE FINALLY REACHED DIAMOND")
