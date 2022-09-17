@@ -85,8 +85,9 @@ while True:
     try:
       run_pending()
       time.sleep(1)
-    except:
-     exit()
+    except tweepy.TweepError as error :
+      raise error
+      exit()
 
 if __name__ == "__main__":
  main()
