@@ -18,6 +18,8 @@ consumer_secret = os.getenv('TWITTER_API_SECRET_KEY')
 bot_key = os.getenv('TWITTER_BOT_TOKEN')
 bot_secret = os.getenv('TWITTER_BOT_SECRET')
 dishook = os.getenv("DISCORD_WEBHOOK")
+lower_current_rank = os.getenv("LOWER_CURRENT_RANK")
+player_goal_rank = os.getenv("PLAYER_GOAL_RANK")
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(bot_key, bot_secret)
@@ -44,14 +46,14 @@ def check_rank():
     wins = player_info[0]['wins']
     losses = player_info[0]['losses']
     #  If the rank is PLATINUM send the first message if it's DIAMOND send the second message and end the program.
-    if division == 'PLATINUM':
+    if division == lower_current_rank:
         client.create_tweet(
             text=f'NO, AS OF {x.strftime("%c")} SHE IS {division}-{div_rank} WITH {str(int(lp))}LP AND {str(int(losses))} LOSSES https://www.twitch.tv/yoonahkorn')
         print('\033[1;92m' + '✔ Tweeted successfully' + '\033[0m', end="\r")
-    elif division == "DIAMOND":
+    elif division == player_goal_rank:
         api.update_status_with_media(
             f'SHE FINALLY DID IT !!! - {division}-{div_rank} WITH {lp}LP IT ONLY TOOK HER  {str(int(wins))} WINS.', "./assets/letsgo.gif")
-        print("SHE FINALLY REACHED DIAMOND")
+        print(f"SHE FINALLY REACHED {player_goal_rank}")
         webhook = DiscordWebhook(
             url=dishook, content='Webhook Message')
         response = webhook.execute()
@@ -76,7 +78,7 @@ os.system('cls||clear')
 print('\033[1;91m' + 'Starting job...' + '\033[0m')
 
 
-@repeat(every(1).seconds)
+@repeat(every(1).hours)
 def main():
     # print('\033[1;32m' + 'Running timer now...' + '\033[0m')
     spinner = Halo(text='\033[1;33m'+'Waiting for cooldown.' +
