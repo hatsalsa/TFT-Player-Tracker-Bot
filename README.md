@@ -21,7 +21,7 @@ python3 -m venv venv
 
 pip install -r requirements.txt
 ```
-### ENV
+### Environment Variables
 Rename the `.env.example` to `.env` and put your credentials
 > As stated before the Riot API KEY should be an allowed application to access the required data, and since this project was before the X (twitter) API changes now you require a subscription to their API.
 
