@@ -9,7 +9,7 @@ This a simple TFT rank checker, what it does is that every hour it will pull dat
 | ------------- | ------------- |
 | Division | Player Rank (eg. Diamond, Platinum, etc) |
 | Div_rank | Rank division (The number after the rank eg. 4, 3 , 2 ,1) |
-| LP | League Points |
+| LP | League Points (player ranking points) |
 | Wins | Player Current Wins |
 | Losses | Player Current losses |
 
